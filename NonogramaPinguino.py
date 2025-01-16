@@ -20,51 +20,6 @@ color_a_numero = {
     "Naranja": 4    # Naranja -> 5
 } 
 
-solucion_resuelta = [
-    ["Celeste","Celeste","Celeste","Celeste","Celeste","Celeste","Negro","Negro","Negro","Negro","Negro","Celeste","Celeste","Celeste","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Celeste","Celeste","Negro","Negro","Negro","Negro","Negro","Negro","Negro","Celeste","Celeste","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Celeste","Negro","Negro","Blanco","Blanco","Negro","Blanco","Blanco","Negro","Negro","Celeste","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Negro","Negro","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Negro","Negro","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Negro","Negro","Blanco","Blanco","Verde","Blanco","Verde","Blanco","Blanco","Negro","Negro","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Negro","Negro","Blanco","Blanco","Verde","Blanco","Verde","Blanco","Blanco","Negro","Negro","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Negro","Negro","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Negro","Negro","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Celeste","Negro","Negro","Blanco","Naranja","Naranja","Naranja","Blanco","Negro","Negro","Celeste","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Celeste","Negro","Negro","Blanco","Blanco","Naranja","Blanco","Blanco","Negro","Negro","Celeste","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Negro","Negro","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Negro","Negro","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Negro","Negro","Negro","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Negro","Negro","Negro","Celeste","Celeste"],
-    ["Celeste","Negro","Negro","Negro","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Negro","Negro","Negro","Celeste"],
-    ["Negro","Negro","Negro","Negro","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Negro","Negro","Negro","Negro"],
-    ["Negro","Negro","Negro","Negro","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Negro","Negro","Negro","Negro"],
-    ["Negro","Celeste","Negro","Negro","Negro","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Negro","Negro","Negro","Celeste","Negro"],
-    ["Celeste","Celeste","Negro","Negro","Negro","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Blanco","Negro","Negro","Negro","Celeste","Celeste"],
-    ["Celeste","Celeste","Negro","Negro","Negro","Negro","Blanco","Blanco","Blanco","Blanco","Blanco","Negro","Negro","Negro","Negro","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Negro","Negro","Negro","Blanco","Blanco","Blanco","Blanco","Blanco","Negro","Negro","Negro","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Celeste","Negro","Negro","Negro","Blanco","Blanco","Blanco","Negro","Negro","Negro","Celeste","Celeste","Celeste","Celeste"],
-    ["Celeste","Celeste","Celeste","Naranja","Naranja","Naranja","Negro","Negro","Negro","Negro","Negro","Naranja","Naranja","Naranja","Celeste","Celeste","Celeste"],                 
-                     ]
-
-def inyectar_filas_resueltas(individuo, solucion_resuelta, porcentaje_filas):
-    
-    num_filas = len(individuo)
-    num_a_reemplazar = int(num_filas * porcentaje_filas)
-    # Elegir índices de filas para reemplazar.
-    # Aquí, por ejemplo, reemplazamos aleatoriamente 'num_a_reemplazar' filas.
-    indices = random.sample(range(num_filas), num_a_reemplazar)
-    
-    individuo_modificado = [fila.copy() for fila in individuo]  # Copia profunda de cada fila.
-    for i in indices:
-        # Reemplazar la fila 'i' del individuo por la fila 'i' de la solucion_resuelta.
-        individuo_modificado[i] = solucion_resuelta[i].copy()
-    
-    return individuo_modificado
-
-
-def ajustar_dimension(arr, tam):
-    for i in range(len(arr)):
-        while len(arr[i]) < tam:  # Mientras la lista tenga menos de "tam" elementos
-            arr[i].insert(0, 0)   # Agregamos un 0 al inicio
-    return arr
-
 def deco(individuo, pistas_filas, pistas_columnas):
     num_filas = len(individuo)
     num_columnas = len(individuo[0])
@@ -80,9 +35,6 @@ def deco(individuo, pistas_filas, pistas_columnas):
         columna = [individuo[i][j] for i in range(num_filas)]
         secuencia_columna = extraer_secuencias(columna)
         secuencias_columnas[j] = secuencia_columna
-
-    # secuencias_filas = ajustar_dimension(secuencias_filas, len(pistas_columnas[0]))
-    # secuencias_columnas = ajustar_dimension(secuencias_columnas, len(pistas_filas[0]))
 
     return secuencias_filas, secuencias_columnas
 
@@ -296,6 +248,7 @@ def seleccion_ruleta(poblacion):
                 break
                 
     return seleccionados
+ 
 import copy
 import random
 
@@ -460,20 +413,6 @@ def algoritmo_genetico_nonograma(cruza, tam_poblacion, porc_cruza, porc_muta, ge
             print(f"Generación {gen}: Activando búsqueda local por bloques en los mejores individuos.")
             padres = aplicar_busqueda_local_bloques_a_mejores(padres, pistas_filas, pistas_columnas, k_mejores=25, max_iter=800, block_size=3)
             sin_mejora = 0
-
-        # Si se ha estancado, "inyectar" filas correctas en algunos de los mejores individuos.
-        if  contador_estancamiento_global >= umbral:
-            print(f"Generación {gen}: Estancamiento detectado. Inyectando filas resueltas en algunos individuos.")
-            # Por ejemplo, actualizamos los k mejores individuos (o el porcentaje que se desee)
-            k_mejores = min(20, len(padres))
-            for idx in range(k_mejores):
-                individuo, aptitud = padres[idx]
-                # Reemplazar la mitad de las filas por las correspondientes en solucion_resuelta.
-                individuo_actualizado = inyectar_filas_resueltas(individuo, solucion_resuelta, porcentaje_filas=0.96)
-                nueva_aptitud = calcular_aptitud(individuo_actualizado, pistas_filas, pistas_columnas)
-                padres[idx] = [individuo_actualizado, nueva_aptitud]
-            # Reiniciar el contador sin mejora al inyectar
-            contador_estancamiento_global = 0
 
         mejores.append(padres[0][1])
         peores.append(padres[-1][1])
