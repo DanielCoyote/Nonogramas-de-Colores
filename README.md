@@ -30,7 +30,11 @@ Este repositorio contiene un solucionador de nonogramas en color que utiliza alg
 
 2. Ejecuta el programa  de tu preferecncia:
 
-   python NonogramaPinguino.py  o python NonogramaCaballo.py
+   ```bash
+   python NonogramaPinguino.py
+
+   ```bash
+   python NonogramaCaballo.py
            
 Esto lanzará el solucionador para cada nonograma y se abrirá la interfaz gráfica donde podrás ver la solución encontrada.
 
