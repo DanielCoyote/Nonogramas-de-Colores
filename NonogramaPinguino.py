@@ -510,7 +510,7 @@ nonogramas = [
 tam_poblacion = 300
 porc_cruza = 0.8
 porc_muta = 0.3
-generaciones = 11000
+generaciones = 20000
 tipo_cruza = 'dos_puntos'
 
 semillas = [11]  # Se puede poner n cantidad de Semillas
